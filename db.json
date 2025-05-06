@@ -1,3 +1,16 @@
 {
-  "messages": []
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi, I am Alex and I live in Tashkent",
+      "id": "6b8fca3f-6c17-4016-bf6f-0f7db6aa1f27",
+      "createdAt": "2025-05-06T11:21:58.681Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello Alex! It's great to meet you. How is life in Tashkent?",
+      "id": "57e79ed9-e452-4486-a319-0347aa8e24a9",
+      "createdAt": "2025-05-06T11:21:59.452Z"
+    }
+  ]
 }
