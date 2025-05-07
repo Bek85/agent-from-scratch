@@ -5,37 +5,62 @@ import { runTool } from './toolRunner'
 import { saveToolResponse } from './memory'
 
 export const runAgent = async ({
-  userMessage,
-  tools,
+  userMessage, // the user message
+  tools, // the tools to use
 }: {
-  userMessage: string
-  tools: any[]
+  userMessage: string // the user message
+  tools: any[] // the tools to use
 }) => {
+  // Save the user message to the database
   await addMessages([{ role: 'user', content: userMessage }])
 
+  // Show the loader
   const loader = showLoader('🤔🤔🤔 Thinking...')
 
-  const history = await getMessages()
+  // loop until the response has no tool calls
+  while (true) {
+    // get the history of messages
+    const history = await getMessages()
 
-  const response = await runLLM({ messages: history, tools })
+    // run the LLM with the history and tools
+    const response = await runLLM({ messages: history, tools })
 
-  await addMessages([response])
+    // Save the response to the database
+    await addMessages([response])
 
-  if (response.tool_calls) {
-    const toolCall = response.tool_calls[0]
+    // if the response has content, stop the loader and return the history
+    if (response.content) {
+      loader.stop()
+      logMessage(response)
+      return getMessages()
+    }
 
-    loader.update(`🔍 Executing: ${toolCall.function.name}`)
+    // if the response has tool calls, run the tool and save the response
+    if (response.tool_calls) {
+      // get the first tool call
+      const toolCall = response.tool_calls[0]
+      logMessage(response)
 
-    const toolResponse = await runTool(toolCall, userMessage)
+      // show the loader
+      loader.update(`🔍 Executing: ${toolCall.function.name}`)
 
-    await saveToolResponse(toolCall.id, toolResponse)
+      // run the tool with the tool call and user message
+      const toolResponse = await runTool(toolCall, userMessage)
 
-    loader.update(`✅ Done: ${toolCall.function.name}`)
+      // save the tool response to the database
+      await saveToolResponse(toolCall.id, toolResponse)
+
+      // show the loader
+      loader.update(`✅ Done: ${toolCall.function.name}`)
+    }
+
+    // log the response
+    // logMessage(response)
+
+    // stop the loader
+    // loader.stop()
+
+    // return the history
+    // return getMessages()
   }
-
-  logMessage(response)
-
-  loader.stop()
-
-  return getMessages()
 }
