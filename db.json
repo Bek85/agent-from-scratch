@@ -1,28 +1,3 @@
 {
-  "messages": [
-    {
-      "role": "user",
-      "content": "What is the weather like now?",
-      "id": "74420e99-8767-4fce-987c-d1807ae89e00",
-      "createdAt": "2025-05-06T14:32:45.147Z"
-    },
-    {
-      "role": "assistant",
-      "content": null,
-      "tool_calls": [
-        {
-          "id": "call_mLHbLUyWpwpnA7hT5GY4w8Ly",
-          "type": "function",
-          "function": {
-            "name": "get_weather",
-            "arguments": "{}"
-          }
-        }
-      ],
-      "refusal": null,
-      "annotations": [],
-      "id": "84dd27cc-da7e-4ed9-a191-957620e1b62b",
-      "createdAt": "2025-05-06T14:32:46.812Z"
-    }
-  ]
+  "messages": []
 }
