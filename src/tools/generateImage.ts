@@ -4,15 +4,11 @@ import { z } from 'zod'
 
 export const generateImageToolDefinition = {
   name: 'generate_image',
-  parameters: z
-    .object({
-      prompt: z
-        .string()
-        .describe(
-          'The prompt to use to generate the image with a diffusion model image generator like Dall-E'
-        ),
-    })
-    .describe('Generates an image and returns the url of the image.'),
+  parameters: z.object({
+    prompt: z.string(),
+  }),
+  description:
+    'Use this tool to generate an image based on a prompt. The image will be generated using a diffusion model image generator like Dall-E.',
 }
 
 type Args = z.infer<typeof generateImageToolDefinition.parameters>

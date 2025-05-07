@@ -10,17 +10,17 @@ if (!userMessage) {
   process.exit(1)
 }
 
-const weatherTool = {
-  name: 'get_weather',
-  description: 'Use this to get the weather',
-  parameters: z.object({
-    reasoning: z.string().describe('Why did you pick this tool?'),
-  }),
-}
+// const weatherTool = {
+//   name: 'get_weather',
+//   description: 'Use this to get the weather',
+//   parameters: z.object({
+//     reasoning: z.string().describe('Why did you pick this tool?'),
+//   }),
+// }
 
 await runAgent({
   userMessage,
-  tools: [...tools],
+  tools,
 })
 
 // console.log(response)

@@ -3,7 +3,7 @@ import { generateImage } from './tools/generateImage'
 import { reddit } from './tools/reddit'
 import { dadJoke } from './tools/dadJoke'
 
-const getWeather = () => `The weather is sunny`
+// const getWeather = () => `The weather is sunny`
 
 export const runTool = async (
   toolCall: OpenAI.Chat.Completions.ChatCompletionMessageToolCall,
@@ -15,8 +15,8 @@ export const runTool = async (
   }
 
   switch (toolCall.function.name) {
-    case 'get_weather':
-      return getWeather(input)
+    // case 'get_weather':
+    //   return getWeather(input)
     case 'generate_image':
       return generateImage(input)
     case 'reddit':
