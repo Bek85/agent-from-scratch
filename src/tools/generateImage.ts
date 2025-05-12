@@ -5,7 +5,11 @@ import { z } from 'zod'
 export const generateImageToolDefinition = {
   name: 'generate_image',
   parameters: z.object({
-    prompt: z.string(),
+    prompt: z
+      .string()
+      .describe(
+        "The prompt to generate an image from. Be sure to consider the user's original message when making the prompt. If you are unsure, then as the user to provide more details."
+      ),
   }),
   description:
     'Use this tool to generate an image based on a prompt. The image will be generated using a diffusion model image generator like Dall-E.',
